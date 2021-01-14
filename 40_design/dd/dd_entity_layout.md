@@ -15,7 +15,6 @@
 
 ## Transaction tables
 - トランザクションテーブルのレイアウトは以下の通りとなる。
-    - テーブル名の prefix に　`t_` をつける。
 
 ### E-R diagram
 
@@ -138,6 +137,12 @@ company_informations
 | create_date           | datetime      |                      | NOT NULL             |        | N/A               |                |                                              |
 | update_date           | timestamp     |                      | NOT NULL             |        | CURRENT_TIMESTAMP |                |                                              |
 
+- delete_flg
+
+| Value | Description |
+|:------|:------------|
+| 0     | 登録済み     |
+| 1     | 退会済み     |
 
 - **Relationship**
 
@@ -163,11 +168,24 @@ company_informations
 | incumbent             | varchar(255)  |utf8_general_ci       | NOT NULL             |        | N/A               |                |現職                                           |
 | currently_department  | varchar(255)  |utf8_general_ci       | NOT NULL             |        | N/A               |                |現部署                                         |
 | currently_position    | varchar(255)  |utf8_general_ci       | NOT NULL             |        | N/A               |                |現役職                                         |
-| dm_state              | tinyint(1)    |                      | NOT NULL             |        | N/A               |                |DM可否                                         |
-| delete_flg            | tinyint(1)    |                      | NOT NULL             |        | N/A               |                |                                              |
+| dm_state              | tinyint(1)    |                      | NOT NULL             |        | 0                 |                |DM可否                                         |
+| delete_flg            | tinyint(1)    |                      | NOT NULL             |        | 0                 |                |                                              |
 | create_date           | datetime      |                      | NOT NULL             |        | N/A               |                |                                              |
 | update_date           | timestamp     |                      | NOT NULL             |        | CURRENT_TIMESTAMP |                |                                              |
 
+- dm_state
+
+| Value | Description |
+|:------|:------------|
+| 0     | DM許可       |
+| 1     | DM拒否       |
+
+- delete_flg
+
+| Value | Description |
+|:------|:------------|
+| 0     | 登録済み     |
+| 1     | 退会済み     |
 
 - **Relationship**
 
@@ -328,7 +346,7 @@ company_informations
 | Field                       | Type          |Collation             |Nullable or NOT NULL  | Key    | Default           | Extra          | Description                                  |
 |:----------------------------|:--------------|:---------------------|:---------------------|:-------|:------------------|:---------------|:---------------------------------------------|
 | id                          | int(11)       |                      | NOT NULL             | UNIQUE | N/A               | auto_increment |                                              |
-| name                        | int(11)       |                      | NOT NULL             |        | N/A               |                |                                              |
+| name                        | varchar(255)  |                      | NOT NULL             |        | N/A               |                |                                              |
 | delete_flg                  | tinyint(1)    |                      | NOT NULL             |        | N/A               |                |                                              |
 | create_date                 | datetime      |                      | NOT NULL             |        | N/A               |                |                                              |
 | update_date                 | timestamp     |                      | NOT NULL             |        | CURRENT_TIMESTAMP |                |                                              |
@@ -367,7 +385,3 @@ company_informations
 | create_date                 | datetime      |                      | NOT NULL             |        | N/A               |                |                                              |
 | update_date                 | timestamp     |                      | NOT NULL             |        | CURRENT_TIMESTAMP |                |                                              |
 
-
-## memo
-- `varchar`はmigration fileでは`string`と定義
-- `numeric`はmigration fileでは`Decimal`と定義
